@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "900771005523",
+    "firebase_url": "https://artistapp2.firebaseio.com",
+    "project_id": "artistapp2",
+    "storage_bucket": "artistapp2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900771005523:android:9f9fc248d4ab2f9d3432a6",
+        "android_client_info": {
+          "package_name": "com.example.artistapp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900771005523-093nippk9dl2fgffa1otssesa9nm7ji1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.artistapp2",
+            "certificate_hash": "5def98cf7abfea8f228810b96239d3363a92b1b6"
+          }
+        },
+        {
+          "client_id": "900771005523-u52o1v05qglh7c6qpm7rm0is2c6ct6er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6sN_-YuY_m9khRIJS3PjgwM_w6oIH_io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900771005523-u52o1v05qglh7c6qpm7rm0is2c6ct6er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
