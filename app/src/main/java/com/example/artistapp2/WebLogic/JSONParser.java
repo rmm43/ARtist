@@ -4,7 +4,7 @@ public class JSONParser {
 
     public static void parseFriendsList(String response)
     {
-        
+
     }
 
 }
