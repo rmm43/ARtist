@@ -52,10 +52,10 @@
             android:text="GO"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/friendEditText" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/friendEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="256dp"
@@ -72,7 +72,7 @@
             android:layout_marginBottom="16dp"
             android:text="Name of Friend..."
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintBottom_toTopOf="@+id/friendEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

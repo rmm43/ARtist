@@ -26,16 +26,12 @@ public class MainActivity extends AppCompatActivity {
     List<AuthUI.IdpConfig> providers;
     Button btn_sign_out;
     Button btn_info;
-    int test;
     public static FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        test = 1;
-        Log.d("Assert", "Hello?");
 
         btn_sign_out = findViewById(R.id.btn_sign_out);
         btn_sign_out.setOnClickListener(new View.OnClickListener() {
@@ -78,18 +74,11 @@ public class MainActivity extends AppCompatActivity {
                 new AuthUI. IdpConfig.GoogleBuilder().build() //Google
         );
 
-        //showSignInOptions();
-
-    }
-
-    public void saveView(View v){
-
+        showSignInOptions();
 
     }
 
     public void openInformationActivity(){
-
-
 
         Intent intent = new Intent(this, InformationActivity.class);
         startActivity(intent);
@@ -114,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 //get user
                 user = FirebaseAuth.getInstance().getCurrentUser();
+
                 //show email on toast
                 Toast.makeText(  this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();
                 //SET BUTTON SIGNOUT

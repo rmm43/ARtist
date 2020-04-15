@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class InformationActivity extends AppCompatActivity {
 
@@ -13,6 +17,23 @@ public class InformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        TextView nameText = findViewById(R.id.nameText);
+        nameText.setText("" + user.getDisplayName());
+
+        TextView emailText = findViewById(R.id.emailText);
+        emailText.setText("" + user.getEmail());
+
+        String friends = "";
+        User.getFriends();
+        for(String friend:User.getFriends()){
+
+            friends += (friend + "\n");
+        }
+        TextView friendText = findViewById(R.id.friendText);
+        friendText.setText(friends);
 
         Button backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
