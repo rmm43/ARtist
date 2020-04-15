@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "This action takes you to the information screen", Snackbar.LENGTH_LONG)
                         .setAction("INFO", null).show();
-                openInformationActivity();
+                //openInformationActivity();
+                openExampleActivity();
             }
         });
 
@@ -74,13 +75,21 @@ public class MainActivity extends AppCompatActivity {
                 new AuthUI. IdpConfig.GoogleBuilder().build() //Google
         );
 
-        showSignInOptions();
+        //showSignInOptions();
+
+
 
     }
 
     public void openInformationActivity(){
 
         Intent intent = new Intent(this, InformationActivity.class);
+        startActivity(intent);
+    }
+
+    public void openExampleActivity(){
+
+        Intent intent = new Intent(this, ExampleActivity.class);
         startActivity(intent);
     }
 
