@@ -21,16 +21,21 @@ public class InformationActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         TextView nameText = findViewById(R.id.nameText);
-        nameText.setText("" + user.getDisplayName());
+
+        try{
+            nameText.setText(user.getDisplayName());
+        }catch(Exception e){
+            Log.d("test", "Null pointer exception caught in user.getDisplayName()");
+        }
 
         TextView emailText = findViewById(R.id.emailText);
-        emailText.setText("" + user.getEmail());
+        emailText.setText(user.getEmail());
 
-        String friends = "";
-        User.getFriends();
+        StringBuilder friends = new StringBuilder();
         for(String friend:User.getFriends()){
 
-            friends += (friend + "\n");
+            friends.append(friend);
+            friends.append("\n");
         }
         TextView friendText = findViewById(R.id.friendText);
         friendText.setText(friends);
