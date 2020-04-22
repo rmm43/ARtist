@@ -1,7 +1,10 @@
 package com.example.artistapp2;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,12 +29,14 @@ public class MainActivity extends AppCompatActivity {
     List<AuthUI.IdpConfig> providers;
     Button btn_sign_out;
     Button btn_info;
+    Button btn_ar;
     public static FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         btn_sign_out = findViewById(R.id.btn_sign_out);
         btn_sign_out.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +68,16 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "This action takes you to the information screen", Snackbar.LENGTH_LONG)
                         .setAction("INFO", null).show();
                 openInformationActivity();
-                //openExampleActivity();
+            }
+        });
+
+        btn_ar = findViewById(R.id.btn_ar);
+        btn_ar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "This action takes you to the ar screen", Snackbar.LENGTH_LONG)
+                        .setAction("AR", null).show();
+                openExampleActivity();
             }
         });
 
@@ -112,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
             {
                 //get user
                 user = FirebaseAuth.getInstance().getCurrentUser();
+
+                User(user);
 
                 //show email on toast
                 Toast.makeText(  this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();
