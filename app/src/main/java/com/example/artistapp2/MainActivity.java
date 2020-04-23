@@ -127,7 +127,14 @@ public class MainActivity extends AppCompatActivity {
                 //get user
                 user = FirebaseAuth.getInstance().getCurrentUser();
 
-                //new User(user);
+                SharedPreferences sp = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+
+                editor.putString("Name", user.getDisplayName());
+                editor.putString("Email", user.getEmail());
+                editor.putString("Uid", user.getUid());
+                editor.commit();
+
 
                 //show email on toast
                 Toast.makeText(  this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();

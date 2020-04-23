@@ -1,16 +1,13 @@
 package com.example.artistapp2;
 
-import android.content.SharedPreferences;
 import java.util.ArrayList;
 import java.util.List;
-import com.google.firebase.auth.FirebaseUser;
 
 //file is deprecated
 public class User {
 
     private static User sUser;
     private static List<String> friendsList;
-    private static SharedPreferences sharedpreferences;
 
     public static User get()//perhaps needs context?
     {
@@ -47,29 +44,8 @@ public class User {
         }
     }
 
-    public static void setPreferences(SharedPreferences sp){
-        sharedpreferences = sp;
-    }
-
-    public static SharedPreferences getPreferences(){
-
-        return sharedpreferences;
-    }
-
-
     public User(){
         friendsList = new ArrayList<String>();
-    }
-
-    public User(FirebaseUser user)
-    {
-
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-
-        editor.putString("Name", user.getDisplayName());
-        editor.putString("Email", user.getEmail());
-        editor.putString("Uid", user.getUid());
-        editor.commit();
     }
 
 }

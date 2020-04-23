@@ -1,6 +1,8 @@
 package com.example.artistapp2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,18 +20,18 @@ public class InformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
 
-        FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
 
+        SharedPreferences sp = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         TextView nameText = findViewById(R.id.nameText);
 
         try{
-            nameText.setText(fbuser.getDisplayName());
+            nameText.setText(sp.getString("Name", null));
         }catch(Exception e){
             Log.d("test", "Null pointer exception caught in user.getDisplayName()");
         }
 
         TextView emailText = findViewById(R.id.emailText);
-        emailText.setText(fbuser.getEmail());
+        emailText.setText(sp.getString("Email", null));
 
         StringBuilder friends = new StringBuilder();
         for(String friend:User.getFriends()){
