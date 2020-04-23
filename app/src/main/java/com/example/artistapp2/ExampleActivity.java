@@ -31,16 +31,7 @@ public class ExampleActivity extends AppCompatActivity {
     private void placeModel(Anchor anchor) {
         ModelRenderable
                 .builder()
-                .setSource(
-                        this,
-                        RenderableSource
-                        .builder()
-                        .setSource(this, Uri.parse(ASSET_3D), RenderableSource.SourceType.GLTF2)
-                        .setScale(.75f)
-                        .setRecenterMode(RenderableSource.RecenterMode.ROOT)
-                        .build()
-                )
-                .setRegistryId(ASSET_3D)
+                .setSource(this, Uri.parse("anime.sfb"))
                 .build()
                 .thenAccept(modelRenderable -> addNodeToScene(modelRenderable, anchor))
                 .exceptionally(throwable -> {
@@ -48,8 +39,6 @@ public class ExampleActivity extends AppCompatActivity {
                     builder.setMessage(throwable.getMessage()).show();
                     return null;
                 });
-        
-        
     }
 
     private void addNodeToScene(ModelRenderable modelRenderable, Anchor anchor) {
