@@ -30,20 +30,29 @@ public class MainActivity extends AppCompatActivity {
     Button btn_sign_out;
     Button btn_info;
     Button btn_ar;
-    public static FirebaseUser user;
+    FirebaseUser user;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sp = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
 
         btn_sign_out = findViewById(R.id.btn_sign_out);
         btn_sign_out.setOnClickListener(new View.OnClickListener() {
 
-
             public void onClick(View v) {
                 //logout
+
+                SharedPreferences.Editor editor = sp.edit();
+
+                editor.putString("Name", null);
+                editor.putString("Email", null);
+                editor.putString("Uid", null);
+                editor.commit();
+
                 AuthUI.getInstance()
                         .signOut(MainActivity.this)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -89,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 new AuthUI. IdpConfig.GoogleBuilder().build() //Google
         );
 
-        showSignInOptions();
-
-
+        if(sp.getString("Name", null) == null){
+            showSignInOptions();
+        }
 
     }
 
@@ -127,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 //get user
                 user = FirebaseAuth.getInstance().getCurrentUser();
 
-                SharedPreferences sp = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
 
                 editor.putString("Name", user.getDisplayName());
