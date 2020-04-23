@@ -47,11 +47,11 @@ public class User {
         }
     }
 
-    public static void setPreference(SharedPreferences sp){
+    public static void setPreferences(SharedPreferences sp){
         sharedpreferences = sp;
     }
 
-    public static SharedPreferences getPreference(){
+    public static SharedPreferences getPreferences(){
 
         return sharedpreferences;
     }

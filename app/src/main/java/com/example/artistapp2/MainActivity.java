@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 new AuthUI. IdpConfig.GoogleBuilder().build() //Google
         );
 
-        //showSignInOptions();
+        showSignInOptions();
 
 
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 //get user
                 user = FirebaseAuth.getInstance().getCurrentUser();
 
-                User(user);
+                //new User(user);
 
                 //show email on toast
                 Toast.makeText(  this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();

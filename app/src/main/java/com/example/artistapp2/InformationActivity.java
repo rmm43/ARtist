@@ -18,10 +18,12 @@ public class InformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
 
+        FirebaseUser fbuser = FirebaseAuth.getInstance().getCurrentUser();
+
         TextView nameText = findViewById(R.id.nameText);
 
         try{
-            nameText.setText();
+            nameText.setText(fbuser.getDisplayName());
         }catch(Exception e){
             Log.d("test", "Null pointer exception caught in user.getDisplayName()");
         }
