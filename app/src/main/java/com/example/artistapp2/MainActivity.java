@@ -22,6 +22,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import android.view.View;
+
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -144,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("Email", user.getEmail());
                 editor.putString("Uid", user.getUid());
                 editor.commit();
+
+
 
                 Webcall.addUserWebcall(user.getDisplayName(), user.getUid(), user.getEmail());
                 Log.d("Test", "webcall made..");
