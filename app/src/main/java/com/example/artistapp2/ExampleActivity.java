@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ExampleActivity extends AppCompatActivity {
 
     ArFragment arFragment;
-    private String ASSET_3D = "";
+    private String ASSET_3D = "anime.sfb";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
