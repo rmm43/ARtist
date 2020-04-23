@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.commit();
 
                 Webcall.addUserWebcall(user.getDisplayName(), user.getUid(), user.getEmail());
+                Log.d("Test", "webcall made..");
 
 
                 //show email on toast

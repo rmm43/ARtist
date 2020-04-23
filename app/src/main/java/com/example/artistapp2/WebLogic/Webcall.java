@@ -1,6 +1,8 @@
 package com.example.artistapp2.WebLogic;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -44,11 +46,12 @@ public class Webcall {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 //TODO add in a connection error message
+                Log.d("Test", "webcall failed..");
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                //Do nothing, it succeeded.
+                Log.d("Test", "webcall worked!");
             }
         });
     }
