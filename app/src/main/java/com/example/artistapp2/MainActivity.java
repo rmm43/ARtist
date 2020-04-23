@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 import android.widget.Button;
+
+import com.example.artistapp2.WebLogic.Webcall;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -142,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("Email", user.getEmail());
                 editor.putString("Uid", user.getUid());
                 editor.commit();
+
+                Webcall.addUserWebcall(user.getDisplayName(), user.getUid(), user.getEmail());
 
 
                 //show email on toast
