@@ -33,6 +33,9 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
     boolean flag = false;
     Anchor anc;
     SharedPreferences sp;
+    String[] assets;
+    int num_assets = 3;
+    int counter = 0;
 
     enum state {
         NONE,
@@ -46,15 +49,21 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_example);
 
+        assets = new String[num_assets];
+        assets[0] = "bear.sfb";
+        assets[1] = "cat.sfb";
+        assets[2] = "cow.sfb";
+
         sp = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
 
         arFragment = (cloudARFragment) getSupportFragmentManager().findFragmentById(R.id.sceneform_ux_fragment);
 
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
 
-            anc = arFragment.getArSceneView().getSession().hostCloudAnchor(hitResult.createAnchor());
+        anc = arFragment.getArSceneView().getSession().hostCloudAnchor(hitResult.createAnchor());
             anchorState = state.HOSTING;
-           placeModel(anc);
+
+            placeModel(anc);
 
             Anchor.CloudAnchorState cloudState = anc.getCloudAnchorState();
             Log.d("Test", cloudState.toString());
@@ -109,7 +118,6 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
                 Anchor retrievedAnchor = arFragment.getArSceneView().getSession().resolveCloudAnchor(hashes.get(i));
                 placeModel(retrievedAnchor);
             }
-
         });
     }
 
@@ -134,7 +142,7 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
     private void placeModel(Anchor anchor) {
         ModelRenderable
                 .builder()
-                .setSource(this, Uri.parse(ASSET_3D))
+                .setSource(this, Uri.parse(assets[counter%num_assets]))
                 .build()
                 .thenAccept(modelRenderable -> addNodeToScene(modelRenderable, anchor))
                 .exceptionally(throwable -> {
@@ -142,6 +150,7 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
                     builder.setMessage(throwable.getMessage()).show();
                     return null;
                 });
+        counter++;
     }
 
     private void addNodeToScene(ModelRenderable modelRenderable, Anchor anchor) {

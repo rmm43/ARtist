@@ -65,3 +65,14 @@ sceneform.asset('sampledata/Anime_character.fbx',
         'default',
         'sampledata/Anime_character.sfa',
         'src/main/assets/Anime_character')
+
+
+sceneform.asset('sampledata/cat.fbx',
+        'default',
+        'sampledata/cat.sfa',
+        'src/main/assets/cat')
+
+sceneform.asset('sampledata/cow.fbx',
+        'default',
+        'sampledata/cow.sfa',
+        'src/main/assets/cow')
