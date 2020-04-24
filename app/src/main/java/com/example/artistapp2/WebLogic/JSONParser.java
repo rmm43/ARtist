@@ -13,8 +13,12 @@ public class JSONParser {
     {
         try
         {
-            JSONObject object = new JSONObject(response);
-            Board.getInstance().setHash(object.getString("board_hash"));
+            JSONArray array = new JSONArray(response);
+            for(int i = 0; i < array.length(); i++)
+            {
+                JSONObject obj = array.getJSONObject(i);
+                Board.getInstance().addHash(obj.getString("board_hash"));
+            }
         }
         catch(Exception e)
         {

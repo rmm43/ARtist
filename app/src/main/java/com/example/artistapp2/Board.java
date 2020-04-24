@@ -1,9 +1,12 @@
 package com.example.artistapp2;
 
+import java.util.ArrayList;
+
 public class Board {
 
     private static Board sBoard;
     private String hash;
+    private ArrayList<String> hashes;
 
     public static Board getInstance()
     {
@@ -14,19 +17,16 @@ public class Board {
         return sBoard;
     }
 
-    public void setHash(String newHash)
+    public void addHash(String newHash)
     {
-        hash = newHash;
+        hashes.add(newHash);
     }
 
-    public String getHash()
+    public ArrayList<String> getHash()
     {
-        if(hash == null)
-            return "null";
-        else
-            return hash;
+            return hashes;
     }
 
-    private Board(){}
+    private Board(){hashes = new ArrayList<String>();}
 
 }

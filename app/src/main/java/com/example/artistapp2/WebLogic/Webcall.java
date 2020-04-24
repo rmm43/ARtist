@@ -70,12 +70,6 @@ public class Webcall {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Log.d("Test", "webcall worked!");
-
-                if(responseString == null)
-                {
-                    Board.getInstance().setHash("invalid");
-                }
-                else
                     JSONParser.parseBoardInformation(responseString);
             }
         });

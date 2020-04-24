@@ -21,6 +21,8 @@ import com.google.ar.sceneform.ux.ArFragment;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import static java.lang.Thread.sleep;
 
 public class ExampleActivity extends AppCompatActivity implements Runnable{
@@ -100,14 +102,12 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
             Webcall.retrieveBoardWebcall(targetUsername);
             Board mBoard = Board.getInstance();
 
-            String hash = Board.getInstance().getHash();
+            ArrayList<String> hashes = Board.getInstance().getHash();
 
-            if(!hash.equals("invalid") && !hash.equals("null"))
+            for(int i = 0; i < hashes.size(); i++)
             {
-                Log.d("Test", "Anchor Hash: " + hash);
-                Anchor retrievedAnchor = arFragment.getArSceneView().getSession().resolveCloudAnchor(hash);
+                Anchor retrievedAnchor = arFragment.getArSceneView().getSession().resolveCloudAnchor(hashes.get(i));
                 placeModel(retrievedAnchor);
-                mBoard.setHash("null");
             }
 
         });
