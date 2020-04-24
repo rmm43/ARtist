@@ -19,6 +19,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <meta-data android:name="com.google.ar.core" android:value="required"/>
+        <meta-data android:name="com.google.android.ar.API_KEY" android:value="AIzaSyCDvO4DCSQeEKZ39qr6GO6mFN2DQyAgz4w"/>
 
         <activity
             android:name=".ExampleActivity"
