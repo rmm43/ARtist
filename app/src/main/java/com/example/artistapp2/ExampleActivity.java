@@ -100,19 +100,9 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
             Webcall.retrieveBoardWebcall(targetUsername);
             Board mBoard = Board.getInstance();
 
-            String hash;
-            while(true)
-            {
-                hash = mBoard.getHash();
-                if(!hash.equals("null"))
-                    break;
-            }
+            String hash = Board.getInstance().getHash();
 
-            if(hash.equals("invalid"))
-            {
-                mBoard.setHash("null");
-            }
-            else
+            if(!hash.equals("invalid") && !hash.equals("null"))
             {
                 Log.d("Test", "Anchor Hash: " + hash);
                 Anchor retrievedAnchor = arFragment.getArSceneView().getSession().resolveCloudAnchor(hash);
