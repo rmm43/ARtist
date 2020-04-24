@@ -2,7 +2,7 @@ package com.example.artistapp2.WebLogic;
 
 import android.util.Log;
 
-import com.example.artistapp2.Board;
+import com.example.artistapp2.Models.Board;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

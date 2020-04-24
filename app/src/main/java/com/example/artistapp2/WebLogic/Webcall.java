@@ -1,9 +1,7 @@
 package com.example.artistapp2.WebLogic;
 
-import android.content.Context;
 import android.util.Log;
 
-import com.example.artistapp2.Board;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;

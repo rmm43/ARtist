@@ -1,4 +1,4 @@
-package com.example.artistapp2;
+package com.example.artistapp2.Models;
 
 import java.util.ArrayList;
 

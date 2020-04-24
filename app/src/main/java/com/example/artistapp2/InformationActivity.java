@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import com.example.artistapp2.Models.User;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class InformationActivity extends AppCompatActivity {
 
@@ -34,7 +34,7 @@ public class InformationActivity extends AppCompatActivity {
         emailText.setText(sp.getString("Email", null));
 
         StringBuilder friends = new StringBuilder();
-        for(String friend:User.getFriends()){
+        for(String friend: User.getFriends()){
 
             friends.append(friend);
             friends.append("\n");
