@@ -65,8 +65,3 @@ sceneform.asset('sampledata/Anime_character.fbx',
         'default',
         'sampledata/Anime_character.sfa',
         'src/main/assets/Anime_character')
-
-sceneform.asset('sampledata/girl.fbx',
-        'default',
-        'sampledata/girl.sfa',
-        'src/main/assets/girl')
