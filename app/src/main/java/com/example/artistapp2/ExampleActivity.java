@@ -1,5 +1,7 @@
 package com.example.artistapp2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.artistapp2.WebLogic.Webcall;
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.Scene;
@@ -27,6 +30,7 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
     String targetUsername = "null";
     boolean flag = false;
     Anchor anc;
+    SharedPreferences sp;
 
     enum state {
         NONE,
@@ -40,6 +44,8 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_example);
 
+        sp = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+
         arFragment = (cloudARFragment) getSupportFragmentManager().findFragmentById(R.id.sceneform_ux_fragment);
 
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
@@ -47,19 +53,27 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
             anc = arFragment.getArSceneView().getSession().hostCloudAnchor(hitResult.createAnchor());
             anchorState = state.HOSTING;
            placeModel(anc);
+
+            Anchor.CloudAnchorState cloudState = anc.getCloudAnchorState();
+            Log.d("Test", cloudState.toString());
         });
 
-        if(anchorState == state.HOSTING)
-        {
-            arFragment.getArSceneView().getScene().addOnUpdateListener(frameTime -> {
+        arFragment.getArSceneView().getScene().addOnUpdateListener(frameTime -> {
 
+            if(anchorState == state.HOSTING)
+            {
                 Anchor.CloudAnchorState cloudState = anc.getCloudAnchorState();
+                Log.d("Test", cloudState.toString());
                 if(cloudState == Anchor.CloudAnchorState.SUCCESS)
                 {
-                    //Do a webcall to put it in the database.
+                    anchorState = state.HOSTED;
+                    Webcall.newBoardWebcall(sp.getString("Name", null), anc.getCloudAnchorId());
+                    Log.d("Test", "RAN WEBCALL");
                 }
-            });
-        }
+            }
+        });
+
+
 
         EditText usernameSelection = findViewById(R.id.usernameSelection);
         usernameSelection.addTextChangedListener(new TextWatcher() {
@@ -81,7 +95,31 @@ public class ExampleActivity extends AppCompatActivity implements Runnable{
 
         Button getBoardButton = findViewById(R.id.getBoardButton);
         getBoardButton.setOnClickListener(view -> {
-            //Send a webcall to get the most recent anchorID from the chosen username
+
+            Log.d("Test", "Made webcall for retieving hash..");
+            Webcall.retrieveBoardWebcall(targetUsername);
+            Board mBoard = Board.getInstance();
+
+            String hash;
+            while(true)
+            {
+                hash = mBoard.getHash();
+                if(!hash.equals("null"))
+                    break;
+            }
+
+            if(hash.equals("invalid"))
+            {
+                mBoard.setHash("null");
+            }
+            else
+            {
+                Log.d("Test", "Anchor Hash: " + hash);
+                Anchor retrievedAnchor = arFragment.getArSceneView().getSession().resolveCloudAnchor(hash);
+                placeModel(retrievedAnchor);
+                mBoard.setHash("null");
+            }
+
         });
     }
 

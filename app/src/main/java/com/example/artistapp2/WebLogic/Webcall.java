@@ -3,6 +3,7 @@ package com.example.artistapp2.WebLogic;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.artistapp2.Board;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -10,29 +11,6 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import cz.msebera.android.httpclient.Header;
 
 public class Webcall {
-
-    public static void webCall(final Context context, String requestURL, String userId)
-    {
-        String finalURL = requestURL;
-        if(requestURL.equals(URL.getFriendsList)) {
-            finalURL += userId;
-            final AsyncHttpClient client = new AsyncHttpClient();
-            client.get(finalURL, null, new TextHttpResponseHandler() {
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
-                    //TODO add in a connection error message
-
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, String responseString) {
-
-                    JSONParser.parseFriendsList(responseString);
-                }
-            });
-        }
-    }
 
     public static void addUserWebcall(String username, String uid, String email)
     {
@@ -52,6 +30,53 @@ public class Webcall {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Log.d("Test", "webcall worked!");
+            }
+        });
+    }
+
+    public static void newBoardWebcall(String username, String boardHash)
+    {
+        RequestParams params = new RequestParams();
+        params.put("username", username);
+        params.put("hash", boardHash);
+
+        final AsyncHttpClient client = new AsyncHttpClient();
+        client.post(URL.newBoard, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                //TODO add in a connection error message
+                Log.d("Test", "webcall failed..");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Log.d("Test", "webcall worked!");
+            }
+        });
+    }
+
+    public static void retrieveBoardWebcall(String username)
+    {
+        String finalAddress = URL.getBoard + username;
+
+        final AsyncHttpClient client = new AsyncHttpClient();
+        client.get(finalAddress, null, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                //TODO add in a connection error message
+                Log.d("Test", "webcall failed..");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Log.d("Test", "webcall worked!");
+
+                if(responseString == null)
+                {
+                    Board.getInstance().setHash("invalid");
+                }
+                else
+                    JSONParser.parseBoardInformation(responseString);
             }
         });
     }
