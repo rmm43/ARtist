@@ -61,7 +61,6 @@ sceneform.asset('sampledata/bear.fbx',
         'sampledata/bear.sfa',
         'src/main/assets/bear')
 
-
 sceneform.asset('sampledata/Anime_character.fbx',
         'default',
         'sampledata/Anime_character.sfa',

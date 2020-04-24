@@ -6,11 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ExampleActivity">
 
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:id="@+id/getBoardButton"
+        android:text="Get Board"
+        android:layout_marginTop="50dp"></Button>
+
     <fragment
         android:id="@+id/sceneform_ux_fragment"
-        android:name="com.google.ar.sceneform.ux.ArFragment"
+        android:name="com.example.artistapp2.cloudARFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
     />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/usernameSelection"
+        android:text="Enter Username..."
+        android:textColor="@color/white"> </EditText>
 
 </FrameLayout>

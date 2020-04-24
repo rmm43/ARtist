@@ -2,9 +2,14 @@ package com.example.artistapp2;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.Scene;
@@ -17,25 +22,72 @@ import static java.lang.Thread.sleep;
 
 public class ExampleActivity extends AppCompatActivity implements Runnable{
 
-    ArFragment arFragment;
+    cloudARFragment arFragment;
     String ASSET_3D = "bear.sfb";
+    String targetUsername = "null";
     boolean flag = false;
     Anchor anc;
+
+    enum state {
+        NONE,
+        HOSTING,
+        HOSTED
+    }
+    state anchorState = state.NONE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_example);
 
-        arFragment = (ArFragment)getSupportFragmentManager().findFragmentById(R.id.sceneform_ux_fragment);
+        arFragment = (cloudARFragment) getSupportFragmentManager().findFragmentById(R.id.sceneform_ux_fragment);
 
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
 
-           anc = hitResult.createAnchor();
+            anc = arFragment.getArSceneView().getSession().hostCloudAnchor(hitResult.createAnchor());
+            anchorState = state.HOSTING;
            placeModel(anc);
-
         });
 
+        if(anchorState == state.HOSTING)
+        {
+            arFragment.getArSceneView().getScene().addOnUpdateListener(frameTime -> {
+
+                Anchor.CloudAnchorState cloudState = anc.getCloudAnchorState();
+                if(cloudState == Anchor.CloudAnchorState.SUCCESS)
+                {
+                    //Do a webcall to put it in the database.
+                }
+            });
+        }
+
+        EditText usernameSelection = findViewById(R.id.usernameSelection);
+        usernameSelection.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                changeTargetUsername(usernameSelection.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //
+            }
+        });
+
+        Button getBoardButton = findViewById(R.id.getBoardButton);
+        getBoardButton.setOnClickListener(view -> {
+            //Send a webcall to get the most recent anchorID from the chosen username
+        });
+    }
+
+    private void changeTargetUsername(String target)
+    {
+        targetUsername = target;
     }
 
     @Override
