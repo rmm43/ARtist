@@ -145,13 +145,10 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("Name", user.getDisplayName());
                 editor.putString("Email", user.getEmail());
                 editor.putString("Uid", user.getUid());
-                editor.commit();
-
-
+                editor.apply();
 
                 Webcall.addUserWebcall(user.getDisplayName(), user.getUid(), user.getEmail());
                 Log.d("Test", "webcall made..");
-
 
                 //show email on toast
                 Toast.makeText(  this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();

@@ -2,18 +2,25 @@ package com.example.artistapp2;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
-import com.google.ar.sceneform.assets.RenderableSource;
+import com.google.ar.sceneform.Scene;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ExampleActivity extends AppCompatActivity {
+import static java.lang.Thread.sleep;
+
+public class ExampleActivity extends AppCompatActivity implements Runnable{
 
     ArFragment arFragment;
-    private String ASSET_3D = "anime.sfb";
+    String ASSET_3D = "bear.sfb";
+    boolean flag = false;
+    Anchor anc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +30,31 @@ public class ExampleActivity extends AppCompatActivity {
         arFragment = (ArFragment)getSupportFragmentManager().findFragmentById(R.id.sceneform_ux_fragment);
 
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
-            placeModel(hitResult.createAnchor());
+
+           anc = hitResult.createAnchor();
+           placeModel(anc);
+
         });
 
+    }
+
+    @Override
+    public void run(){
+
+        while(flag){
+            try{
+                sleep(500);
+                placeModel(anc);
+            }catch(Exception e){
+                Log.d("Test", "Error sleeping thread");
+            }
+        }
     }
 
     private void placeModel(Anchor anchor) {
         ModelRenderable
                 .builder()
-                .setSource(this, Uri.parse("anime.sfb"))
+                .setSource(this, Uri.parse(ASSET_3D))
                 .build()
                 .thenAccept(modelRenderable -> addNodeToScene(modelRenderable, anchor))
                 .exceptionally(throwable -> {
